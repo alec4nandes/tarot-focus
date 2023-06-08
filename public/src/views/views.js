@@ -3,7 +3,8 @@
     and parses it into HTML for DOM injection.
 */
 
-import { getStats, prepareData } from "./models.js";
+import { getStats, prepareData } from "../models.js";
+import displayNavigation from "./navigation.js";
 
 function displayStats(elem, drawn) {
     const cardNames = Object.keys(drawn),
@@ -351,63 +352,12 @@ function preloadImages(drawn, elem) {
 
 function readyToLoad(elem, drawn) {
     displayStats(elem, drawn);
-    const slides = [
-        ...document.querySelector("main").querySelectorAll("section"),
-    ];
-    let slideIndex = 0;
-    displayNavigation();
     enableMobileTooltips();
+    displayNavigation(elem);
     // small time buffer for injecting images into DOM
     setTimeout(() => {
         loader.style.display = "none";
     }, 150);
-
-    function displayNavigation() {
-        const navElem = document.querySelector("header");
-        navElem.innerHTML = `
-            <button id="previous"><</button>
-            ${slides
-                .map(
-                    (_, i) =>
-                        `<span class="nav-dot${
-                            i ? "" : " current-nav-dot"
-                        }">&bull;</span>`
-                )
-                .join("")}
-            <button id="next">></button>
-            <button id="home">home</button>
-        `;
-        const navDots = document.querySelectorAll(".nav-dot"),
-            prev = document.querySelector("#previous"),
-            next = document.querySelector("#next"),
-            home = document.querySelector("#home");
-        elem.onscroll = () => handleMove(navDots);
-        elem.ontouchmove = () => handleMove(navDots);
-        navDots.forEach((dot, i) => (dot.onclick = () => scroller(i)));
-        prev.onclick = () => slides[slideIndex - 1] && scroller(--slideIndex);
-        next.onclick = () => slides[slideIndex + 1] && scroller(++slideIndex);
-        home.onclick = () => location.reload();
-    }
-
-    function handleMove(navDots) {
-        const showing = slides.findLastIndex(
-            (slide) =>
-                slide.getBoundingClientRect().left < window.innerWidth / 2
-        );
-        navDots.forEach((dot, i) =>
-            dot.classList[i === showing ? "add" : "remove"]("current-nav-dot")
-        );
-        slideIndex = showing;
-    }
-
-    function scroller(index = slideIndex) {
-        slides[index].scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-            inline: "start",
-        });
-        slideIndex = index;
-    }
 }
 
 function enableMobileTooltips() {
