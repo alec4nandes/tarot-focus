@@ -50,6 +50,10 @@ img.x-small {
   width: 40px;
 }
 
+header {
+  max-height: 100vh;
+  overflow: auto;
+}
 header .nav-dot {
   opacity: 0.6;
   padding: 1.5px;

@@ -58,6 +58,9 @@ img {
 }
 
 header {
+    max-height: 100vh;
+    overflow: auto;
+
     .nav-dot {
         opacity: 0.6;
         padding: 1.5px;

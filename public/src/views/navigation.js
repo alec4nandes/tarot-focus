@@ -4,6 +4,7 @@ export default function displayNavigation(scrollElem) {
             ...document.querySelector("main").querySelectorAll("section"),
         ];
     let slideIndex = 0;
+    navigationElem.style.overflow = "initial";
     navigationElem.innerHTML = `
         <button id="previous"><</button>
         ${slides
