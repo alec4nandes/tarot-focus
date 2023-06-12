@@ -98,9 +98,12 @@ function formatHelper({
                             <div class="small-cards">
                                 ${getImagesFromCardNames(cards, "small")
                                     .map((imgHTML, i) => {
-                                        const [rank, suit] = cards[i]
-                                            .replace(" reversed", "")
-                                            .split(" of ");
+                                        const card = cards[i],
+                                            [rank, suit] = card
+                                                .replace(" reversed", "")
+                                                .split(" of "),
+                                            isReversed =
+                                                card.includes(" reversed");
                                         return preposition || getPersonal
                                             ? `
                                                 <div>
@@ -110,15 +113,27 @@ function formatHelper({
                                                     ${
                                                         preposition
                                                             ? `
+                                                                ${
+                                                                    isReversed
+                                                                        ? "no "
+                                                                        : ""
+                                                                }
                                                                 ${represents} ${preposition}
                                                                 ${getRandom(
                                                                     suits[suit]
                                                                         .adjectives
                                                                 )}
                                                             `
-                                                            : `${getPersonal(
-                                                                  suit
-                                                              )} ${represents}`
+                                                            : `
+                                                                ${
+                                                                    isReversed
+                                                                        ? "not "
+                                                                        : ""
+                                                                }
+                                                                ${getPersonal(
+                                                                    suit
+                                                                )} ${represents}
+                                                            `
                                                     }
                                                 </div>
                                             `
