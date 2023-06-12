@@ -43,10 +43,12 @@ function getMatchingTables(matching) {
                         ([cards, words]) => `
                             <li>
                                 <h4>${words.join(", ")}</h4>
-                                ${getImagesFromCardNames(
-                                    cards.split(", "),
-                                    "x-small"
-                                )}
+                                <div class="small-cards">
+                                    ${getImagesFromCardNames(
+                                        cards.split(", "),
+                                        "x-small"
+                                    ).join("")}
+                                </div>
                             </li>
                         `
                     )
@@ -74,7 +76,7 @@ function getOppositesTables(opposites) {
                                         ${getImagesFromCardNames(
                                             cards,
                                             "x-small"
-                                        )}
+                                        ).join("")}
                                     </th>
                                     ${Object.entries(opposites)
                                         .slice(0, 1)
@@ -86,7 +88,7 @@ function getOppositesTables(opposites) {
                                                     ${getImagesFromCardNames(
                                                         cards,
                                                         "x-small"
-                                                    )}
+                                                    ).join("")}
                                                 </td>
                                             `
                                         )
@@ -103,7 +105,7 @@ function getOppositesTables(opposites) {
                                                     ${getImagesFromCardNames(
                                                         cards,
                                                         "x-small"
-                                                    )}
+                                                    ).join("")}
                                                 </td>
                                             </tr>
                                         `
@@ -133,7 +135,7 @@ function getOtherWordsTables(otherWords) {
                                             ${getImagesFromCardNames(
                                                 [card],
                                                 "x-small"
-                                            )}
+                                            ).join("")}
                                         </td>
                                         <th>${words.join(", ")}</th>
                                     </tr>

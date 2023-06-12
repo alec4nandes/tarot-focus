@@ -11,9 +11,6 @@ export default function smallPicture(drawn, stats) {
                 like the suits, they are sorted by their overall presence in today's drawing.
                 The absent meanings represent less important areas of your life today.
             </p>
-            <p>
-                *** For each present word, include an adjective under that card based on the suit
-            </p>
             ${formatStatsSection({
                 drawn,
                 info: ranks,

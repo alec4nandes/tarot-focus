@@ -1,4 +1,5 @@
 import getImagesFromCardNames from "./images.js";
+import { suits, getRandom } from "../models.js";
 
 export default function formatStatsSection({
     drawn,
@@ -80,7 +81,8 @@ function formatHelper({
     }
 
     function listItemHTML([key, cards]) {
-        const { represents, meaning } = info[key + ""],
+        const { represents, meaning, preposition, getPersonal } =
+                info[key + ""],
             showMeaning = meaning && !isAbsent;
         return `
             <li>
@@ -94,7 +96,35 @@ function formatHelper({
                     cards.length
                         ? `
                             <div class="small-cards">
-                                ${getImagesFromCardNames(cards, "small")}
+                                ${getImagesFromCardNames(cards, "small")
+                                    .map((imgHTML, i) => {
+                                        const [rank, suit] = cards[i]
+                                            .replace(" reversed", "")
+                                            .split(" of ");
+                                        return preposition || getPersonal
+                                            ? `
+                                                <div>
+                                                    ${imgHTML}
+                                                    <br/>
+                                                    <strong>${suit}:</strong>
+                                                    ${
+                                                        preposition
+                                                            ? `
+                                                                ${represents} ${preposition}
+                                                                ${getRandom(
+                                                                    suits[suit]
+                                                                        .adjectives
+                                                                )}
+                                                            `
+                                                            : `${getPersonal(
+                                                                  suit
+                                                              )} ${represents}`
+                                                    }
+                                                </div>
+                                            `
+                                            : imgHTML;
+                                    })
+                                    .join("")}
                             </div>
                           `
                         : ""

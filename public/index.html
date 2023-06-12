@@ -138,9 +138,14 @@
 
             function handleDraw() {
                 const testCards = [
-                        "10 of Cups", "Star reversed", "7 of Wands"
+                        "10 of Cups",
+                        "10 of Pentacles",
+                        "Knight of Pentacles",
+                        "Knight of Swords",
+                        "Star reversed",
+                        "7 of Wands"
                     ],
-                    drawn = draw(6), // testCards),
+                    drawn = draw(6), //, testCards),
                     elem = document.querySelector("main");
                 preloadImages(drawn, elem);
             }

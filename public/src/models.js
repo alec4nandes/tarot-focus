@@ -10,40 +10,98 @@ const suits = {
             represents: "health and career",
             meaning:
                 "Focus on long-term goals that will bring security and stability to your life. Make an effort to eat well, exercise, and network.",
+            adjectives: ["health", "wealth"],
+            personal: [
+                "practical",
+                "resourceful",
+                "stable",
+                "hardworking",
+                "materialistic",
+            ],
         },
         Swords: {
             represents: "learning and logic",
             meaning:
                 "Focus on expanding your worldview and skillset. Find a new resource for an old interest, or set out to discover something new. Approach problems with your head instead of your heart. Do not let emotion cloud reason — think before you act.",
+            adjectives: ["learning", "logic"],
+            personal: [
+                "intelligent",
+                "rational",
+                "communicative",
+                "courageous",
+                "conflicted",
+            ],
         },
         Cups: {
             represents: "human connection and emotion",
             meaning:
                 "Focus on strengthening relationships without any ulterior motive. Listen deeply before mentally drafting a response. Approach today's problems with your heart instead of your head. Now is not the time to overanalyze — trust your instinct.",
+            adjectives: ["connection", "emotion"],
+            personal: [
+                "sensitive",
+                "intuitive",
+                "romantic",
+                "imaginative",
+                "compassionate",
+            ],
         },
         Wands: {
             represents: "creativity and passion",
             meaning:
                 "Focus on building something new or expanding an old project. Synthesize your passions, even if the first draft is messy. Put it down on paper, then create a plan to get it done.",
+            adjectives: ["creativity", "passion"],
+            personal: [
+                "energetic",
+                "creative",
+                "charismatic",
+                "spiritual",
+                "ambitious",
+            ],
         },
     },
     ranks = {
-        Ace: { represents: "beginning" },
-        2: { represents: "balance" },
-        3: { represents: "communication" },
-        4: { represents: "rest" },
-        5: { represents: "struggle" },
-        6: { represents: "growth" },
-        7: { represents: "strategy" },
-        8: { represents: "effort" },
-        9: { represents: "outcome" },
-        10: { represents: "ending" },
+        Ace: { represents: "beginning", preposition: "of" },
+        2: { represents: "balance", preposition: "of" },
+        3: { represents: "communication", preposition: "with" },
+        4: { represents: "rest", preposition: "from" },
+        5: { represents: "struggle", preposition: "with" },
+        6: { represents: "growth", preposition: "of" },
+        7: { represents: "strategy", preposition: "for" },
+        8: { represents: "effort", preposition: "with" },
+        9: { represents: "outcome", preposition: "of" },
+        10: { represents: "ending", preposition: "of" },
     },
+    getPersonal = (suit) => getRandom(suits[suit].personal),
     people = {
-        Page: { represents: "child" },
-        Knight: { represents: "adolescent" },
-        Queen: { represents: "adult" },
-        King: { represents: "elder" },
+        Page: { represents: "child", getPersonal },
+        Knight: { represents: "adolescent", getPersonal },
+        Queen: { represents: "adult", getPersonal },
+        King: { represents: "elder", getPersonal },
+    },
+    majorArcana = {
+        Fool: "new beginnings, new experiences, and new choices",
+        Magician: "confidence, control, and power",
+        "High Priestess": "the mysteries of existence",
+        Empress: "the female body and the material world",
+        Emperor: "rational thought",
+        Hierophant: "the spiritual world or a religious institution",
+        Lovers: "an intimate relationship",
+        Chariot: "emotional discipline",
+        Strength: "determination, endurance, and fortitude of character",
+        Hermit: "a wise teacher",
+        "Wheel of Fortune": "the notion of fate",
+        Justice: "earthly laws and their consequences",
+        "Hanged Man": "the need to look at things in new ways",
+        Death: "a dramatic transformation, usually in one's lifestyle",
+        Temperance: "moderation, compromise, and cooperation",
+        Devil: "loss of control, loss of faith, or loss of hope",
+        Tower: "physical disaster or the destruction of one's ego",
+        Star: "guidance, hope, and faith",
+        Moon: "deception",
+        Sun: "success, completion, and clarity",
+        Judgement:
+            "cause-and-effect relationships and the notion of cosmic justice",
+        World: "a promotion to a higher position or a new level of knowledge",
     },
     deck = createDeck();
 
@@ -55,37 +113,20 @@ function createDeck() {
                 )
             )
             .flat(),
-        majorArcana = [
-            "Fool",
-            "Magician",
-            "High Priestess",
-            "Empress",
-            "Emperor",
-            "Hierophant",
-            "Lovers",
-            "Chariot",
-            "Strength",
-            "Hermit",
-            "Wheel of Fortune",
-            "Justice",
-            "Hanged Man",
-            "Death",
-            "Temperance",
-            "Devil",
-            "Tower",
-            "Star",
-            "Moon",
-            "Sun",
-            "Judgement",
-            "World",
-        ],
-        deck = [...majorArcana, ...minorArcana].reduce((acc, card, i) => {
-            const isMajor = i < majorArcana.length,
+        majorNames = Object.keys(majorArcana),
+        deck = [...majorNames, ...minorArcana].reduce((acc, card, i) => {
+            const isMajor = i < majorNames.length,
                 [rank, suit] = isMajor ? [null, null] : card.split(" of ");
             return {
                 ...acc,
                 [card]: {
-                    ...(isMajor ? { isMajor, majorNumber: i } : {}),
+                    ...(isMajor
+                        ? {
+                              isMajor,
+                              majorNumber: i,
+                              definition: majorArcana[card],
+                          }
+                        : {}),
                     ...(rank ? { rank } : {}),
                     ...(suit ? { suit } : {}),
                     words: words[card].sort(),
@@ -108,8 +149,7 @@ function getOppositeWords(card) {
 }
 
 function draw(size, testCards = []) {
-    const getRandom = (arr) => arr[~~(Math.random() * arr.length)],
-        cards = Object.keys(deck);
+    const cards = Object.keys(deck);
     let drawn = new Set([
         ...testCards.filter((card) =>
             cards.includes(card.replace(" reversed", ""))
@@ -341,4 +381,17 @@ function getAllWordsInOpposites(opposites) {
     ];
 }
 
-export { suits, ranks, people, draw, getStats, compare };
+function getRandom(arr) {
+    return arr[~~(Math.random() * arr.length)];
+}
+
+export {
+    suits,
+    ranks,
+    people,
+    majorArcana,
+    draw,
+    getStats,
+    compare,
+    getRandom,
+};

@@ -46,7 +46,7 @@ function displayStats(elem, drawn) {
     elem.innerHTML = `
         <section>
             <h2>These are your six cards:</h2>
-            <p>${getImagesFromCardNames(cardNames, "drawn")}</p>
+            <p>${getImagesFromCardNames(cardNames, "drawn").join("")}</p>
             <p>Swipe right to start learning more, or navigate using the menu above.</p>
         </section>
         ${majorArcanaSection(cardNames, stats)}

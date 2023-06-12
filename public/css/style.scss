@@ -141,6 +141,18 @@ ul {
         p {
             margin: 8px 0;
         }
+
+        .small-cards {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+
+            div {
+                background-color: #bbb;
+                border-radius: 3px;
+                padding: 3px;
+            }
+        }
     }
 }
 
@@ -220,6 +232,7 @@ ul {
     li {
         background-color: #eee;
         border-radius: 5px;
+        flex: 0;
         padding: 5px;
         text-align: center;
     }

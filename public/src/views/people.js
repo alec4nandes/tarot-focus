@@ -11,9 +11,10 @@ export default function peopleSection(drawn, stats) {
                 like the suits, they are sorted by their overall presence in today's drawing.
                 The absent meanings represent less important areas of your life today.
             </p>
-            <p>
-                *** For each present word, include an adjective under that card based on the suit
-            </p>
+            <small>
+                If all are present, pay attention to the order they show up in the cards.
+                The first one is the most important.
+            </small>
             ${formatStatsSection({
                 drawn,
                 info: people,

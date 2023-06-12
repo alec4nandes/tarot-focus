@@ -125,6 +125,16 @@ ul {
 ul li p {
   margin: 8px 0;
 }
+ul li .small-cards {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+ul li .small-cards div {
+  background-color: #bbb;
+  border-radius: 3px;
+  padding: 3px;
+}
 
 /*** CLASSES ***/
 .key {
@@ -186,6 +196,7 @@ ul li p {
 .tiled li {
   background-color: #eee;
   border-radius: 5px;
+  flex: 0;
   padding: 5px;
   text-align: center;
 }

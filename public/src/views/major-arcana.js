@@ -1,12 +1,13 @@
 import getImagesFromCardNames from "./images.js";
+import { majorArcana } from "../models.js";
 
 export default function majorArcanaSection(cardNames, stats) {
-    const majorArcana = stats.arcanaStats.major,
-        isPluralArcana = majorArcana.length > 1,
+    const drawnMajors = stats.arcanaStats.major,
+        isPluralArcana = drawnMajors.length > 1,
         seriouses = ["somewhat serious", "moderately serious", "very serious"],
         seriousIndex =
             Math.ceil(
-                (majorArcana.length / cardNames.length) * seriouses.length
+                (drawnMajors.length / cardNames.length) * seriouses.length
             ) - 1,
         serious = seriouses[seriousIndex];
     return `
@@ -25,9 +26,9 @@ export default function majorArcanaSection(cardNames, stats) {
                 <div class="subsection">
                     <strong>
                         ${
-                            majorArcana.length
+                            drawnMajors.length
                                 ? `There ${isPluralArcana ? "are" : "is"} ${
-                                      majorArcana.length
+                                      drawnMajors.length
                                   } major arcana card${
                                       isPluralArcana ? "s" : ""
                                   } in this reading. The tone of this reading is ${serious}.`
@@ -35,14 +36,21 @@ export default function majorArcanaSection(cardNames, stats) {
                         }
                     </strong>
                     <p style="margin-bottom: 0">
-                        ${getImagesFromCardNames(majorArcana, "small")}
+                        ${getImagesFromCardNames(drawnMajors, "small").join("")}
                     </p>
                     <ul>
-                        ${majorArcana
-                            .map(
-                                (card) =>
-                                    `<li><strong>${card}</strong>: [MEANING]</li>`
-                            )
+                        ${drawnMajors
+                            .map((card) => {
+                                const isReversed = card.includes(" reversed"),
+                                    upright = card.replace(" reversed", "");
+                                return `
+                                    <li>
+                                        <strong>${card}</strong>:
+                                        ${isReversed ? "(blocked energy) " : ""}
+                                        ${majorArcana[upright]}
+                                    </li>
+                                `;
+                            })
                             .join("")}
                     </ul>
                 </div>
