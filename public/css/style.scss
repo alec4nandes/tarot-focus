@@ -1,4 +1,10 @@
-@import "https://api.fontshare.com/v2/css?f[]=quicksand@500&f[]=britney@400&display=swap";
+@import url("https://fonts.googleapis.com/css2?family=Sansita:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Overpass:wght@300&display=swap");
+
+@font-face {
+    font-family: "Alegreya Sans Italic";
+    src: url("../fonts/Alegreya\ Sans/AlegreyaSans-MediumItalic.ttf");
+}
 
 /*** ELEMENTS ***/
 
@@ -9,8 +15,8 @@ body {
     color: #eee;
     display: flex;
     flex-direction: column;
-    font-family: "Quicksand", "Times New Roman", Times, serif;
-    font-size: 0.95em;
+    font-family: "Overpass", Arial, Helvetica, sans-serif;
+    font-size: 1rem;
     margin: 0;
     overflow: hidden;
     text-align: center;
@@ -19,7 +25,7 @@ body {
 h1,
 h2,
 h3 {
-    font-family: "Britney", Arial, Helvetica, sans-serif;
+    font-family: "Sansita", Arial, Helvetica, sans-serif;
 }
 
 h1 {
@@ -34,7 +40,7 @@ h3 {
 }
 
 h4 {
-    margin: 0 0 10px;
+    margin: 0 0 5px;
 }
 
 img {
@@ -111,6 +117,7 @@ main {
                 background-color: #ccc;
                 border-radius: 10px;
                 flex: 1;
+                font-size: 0.9rem;
                 padding: 15px 10px;
 
                 .subsection-header {
@@ -137,6 +144,14 @@ ul {
     padding-left: 15px;
     text-align: left;
 
+    &#major-definitions {
+        margin-top: 10px;
+
+        li {
+            padding: 0 0 5px;
+        }
+    }
+
     li {
         p {
             margin: 8px 0;
@@ -144,6 +159,8 @@ ul {
 
         .small-cards {
             display: flex;
+            font-family: "Alegreya Sans Italic";
+            font-size: 0.95rem;
             gap: 4px;
             justify-content: center;
 
@@ -184,15 +201,18 @@ ul {
 
         table {
             width: 100%;
-            border-radius: 5px;
+            border-spacing: 0;
 
             th {
                 width: 50%;
                 background-color: #eee;
+                border-radius: 5px 0 0 5px;
             }
 
             td {
                 background-color: #aaa;
+                border: 1.5px solid #999;
+                border-radius: 0 5px 5px 0;
             }
         }
     }
@@ -229,6 +249,17 @@ ul {
         }
     }
 
+    &:not(.full-width) {
+        li {
+            display: flex;
+            flex-direction: column;
+
+            .small-cards {
+                flex: 1;
+            }
+        }
+    }
+
     li {
         background-color: #eee;
         border-radius: 5px;
@@ -258,7 +289,7 @@ ul {
 
 .tooltip {
     border-bottom: 1px dotted black;
-    font-family: "Quicksand", "Times New Roman", Times, serif;
+    font-family: "Overpass", Arial, Helvetica, sans-serif;
     font-size: 0.95rem;
     font-weight: 400;
     position: relative;

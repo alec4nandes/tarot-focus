@@ -87,10 +87,8 @@ function formatHelper({
         return `
             <li>
                 <h4>
-                    <em>
-                        <span class="key"><strong>${key}</strong>:</span>
-                        ${represents}
-                    </em>
+                    <span class="key"><strong>${key}</strong>:</span>
+                    ${represents}
                 </h4>
                 ${
                     cards.length
@@ -109,7 +107,11 @@ function formatHelper({
                                                 <div>
                                                     ${imgHTML}
                                                     <br/>
-                                                    <strong>${suit}:</strong>
+                                                    <strong>
+                                                        ${suit}${
+                                                  isReversed ? " ⤸" : ""
+                                              }:
+                                                    </strong>
                                                     ${
                                                         preposition
                                                             ? `

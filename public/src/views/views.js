@@ -4,13 +4,13 @@
 */
 
 import { getStats } from "../models.js";
-import displayNavigation from "./navigation.js";
 import getImagesFromCardNames from "./images.js";
 import majorArcanaSection from "./major-arcana.js";
 import bigPicture from "./big-picture.js";
 import smallPicture from "./small-picture.js";
 import peopleSection from "./people.js";
 import wordsSection from "./words-section.js";
+import displayNavigation from "./navigation.js";
 
 function preloadImages(drawn, elem) {
     const loader = document.querySelector("#loader");
@@ -24,13 +24,13 @@ function preloadImages(drawn, elem) {
         for (const url of urls) {
             const img = new Image();
             img.onload = () =>
-                ++loaded === urls.length && readyToLoad(elem, drawn);
+                ++loaded === urls.length && readyToLoad(elem, drawn, loader);
             img.src = url;
         }
     }, 2000);
 }
 
-function readyToLoad(elem, drawn) {
+function readyToLoad(elem, drawn, loader) {
     displayStats(elem, drawn);
     enableMobileTooltips();
     displayNavigation(elem);

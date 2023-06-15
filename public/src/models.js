@@ -8,6 +8,7 @@ import { words, oppositeWords } from "./words.js";
 const suits = {
         Pentacles: {
             represents: "health and career",
+            // TODO: split meanings for each suit, i.e. one for health and one for career.
             meaning:
                 "Focus on long-term goals that will bring security and stability to your life. Make an effort to eat well, exercise, and network.",
             adjectives: ["health", "wealth"],

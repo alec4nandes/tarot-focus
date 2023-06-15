@@ -35,10 +35,19 @@ export default function majorArcanaSection(cardNames, stats) {
                                 : "There are no major arcana cards in this drawing. The tone of this reading is not too serious."
                         }
                     </strong>
-                    <p style="margin-bottom: 0">
-                        ${getImagesFromCardNames(drawnMajors, "small").join("")}
-                    </p>
-                    <ul>
+                    ${
+                        drawnMajors.length
+                            ? `
+                                <p style="margin-bottom: 0">
+                                    ${getImagesFromCardNames(
+                                        drawnMajors,
+                                        "small"
+                                    ).join("")}
+                                </p>
+                            `
+                            : ""
+                    }
+                    <ul id="major-definitions">
                         ${drawnMajors
                             .map((card) => {
                                 const isReversed = card.includes(" reversed"),
@@ -46,7 +55,11 @@ export default function majorArcanaSection(cardNames, stats) {
                                 return `
                                     <li>
                                         <strong>${card}</strong>:
-                                        ${isReversed ? "(blocked energy) " : ""}
+                                        ${
+                                            isReversed
+                                                ? "(blocked energy ⤸) "
+                                                : ""
+                                        }
                                         ${majorArcana[upright]}
                                     </li>
                                 `;

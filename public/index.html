@@ -145,7 +145,10 @@
                         "Star reversed",
                         "7 of Wands"
                     ],
-                    drawn = draw(6), //, testCards),
+                    testMajors = [
+                        "Fool", "High Priestess", "Magician"
+                    ],
+                    drawn = draw(6, testCards), //, testCards),
                     elem = document.querySelector("main");
                 preloadImages(drawn, elem);
             }
